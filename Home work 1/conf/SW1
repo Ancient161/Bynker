@@ -1,1 +1,49 @@
 
+S1
+!
+hostname S1
+!
+enable secret 5 $1$rZTa$RxRkzozdCRQuiYXfxLGtl1
+!
+no aaa new-model
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 3,4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport access vlan 3
+ switchport mode access
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 2-6,8-4094
+ switchport trunk native vlan 8
+!
+interface Vlan3
+ ip address 192.168.3.11 255.255.255.0
+!
+interface Vlan4
+ no ip address
+!
+ip default-gateway 192.168.3.1
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+banner motd ^CUnauthorized access is strictly Prohobited^C
+!
+line con 0
+ password 7 094F471A1A0A
+ logging synchronous
+ login
+line aux 0
+line vty 0 4
+ password 7 030752180500
+ login
+!
+!
+end
