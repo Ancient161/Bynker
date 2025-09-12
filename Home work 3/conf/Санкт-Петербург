@@ -1,5 +1,5 @@
 
-#R18_S.Petersberg#
+#R18_S.Petersberg
 
 
 hostname R18_S.Petersberg
@@ -53,7 +53,8 @@ line vty 0 4
 end
 
 
-#R17_S.Petersberg#
+"""R17_S.Petersberg"""
+
 hostname R17_S.Petersberg
 
 username admin privilege 15 secret 5 $1$e9JJ$t9BGAxgUYZGUTFUlsk6yR1
@@ -100,7 +101,7 @@ line vty 0 4
 !
 end
 !
-#R16_S.Petersberg#
+#R16_S.Petersberg
 !
 hostname R16_S.Petersberg
 !
@@ -139,7 +140,7 @@ line vty 0 4
  login local
  transport input telnet ssh
 
-#SW10_Petersberg#
+"""SW10_Petersberg"""
 hostname SW10_Petersberg
 
 username admin privilege 15 secret 5 $1$cAJF$od6AH6e6DI0Vvpic4s2ll/
@@ -203,7 +204,7 @@ line vty 0 4
  login local
  transport input telnet ssh
 !
-#SW9_S.Petersberg#sh run
+#SW9_S.Petersberg#
 !
 hostname SW9_S.Petersberg
 !
@@ -279,7 +280,7 @@ line vty 0 4
  login local
  transport input telnet ssh
 
-#R32_S.Petersberg#
+"""R32_S.Petersberg"""
 !
 hostname R32_S.Petersberg
 !
