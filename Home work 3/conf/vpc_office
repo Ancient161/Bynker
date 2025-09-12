@@ -1,0 +1,71 @@
+#Moscow
+#VPC1#
+
+NAME        : VPC1_Moscow[1]
+IP/MASK     : 172.31.100.10/24
+GATEWAY     : 172.31.100.1
+DNS         :
+MAC         : 00:50:79:66:68:01
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+
+#VPC7#
+NAME        : VPC7_Moscow[1]
+IP/MASK     : 172.31.70.70/24
+GATEWAY     : 172.31.70.7
+DNS         :
+MAC         : 00:50:79:66:68:07
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+S.Petersberg
+
+#Petersberg8 
+
+NAME        : Petersberg8[1]
+IP/MASK     : 172.18.80.17/24
+GATEWAY     : 172.18.80.1
+DNS         :
+MAC         : 00:50:79:66:68:08
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+#Petersberg9
+
+
+NAME        : Petersberg9[1]
+IP/MASK     : 172.31.90.70/24
+GATEWAY     : 172.31.90.1
+DNS         :
+MAC         : 00:50:79:66:68:0b
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+#Chokyrdax
+
+NAME        : VPCS[1]
+IP/MASK     : 100.68.28.30/24
+GATEWAY     : 100.68.28.1
+DNS         :
+MAC         : 00:50:79:66:68:1e
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+
+
+NAME        : VPCS[1]
+IP/MASK     : 100.68.31.10/24
+GATEWAY     : 100.68.31.1
+DNS         :
+MAC         : 00:50:79:66:68:1f
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+
