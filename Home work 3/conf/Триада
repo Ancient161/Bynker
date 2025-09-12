@@ -1,1 +1,153 @@
+#R23_Triada#
+!
+hostname R23_Triada
+!
+username admin privilege 15 secret 5 $1$U8KX$YNaGE3/zO7EyV9XzSwaMA.
+!
+ip ssh version 2
+!
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.23 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/2 R22 Kitorn
+ ip address 91.210.20.2 255.255.255.0
+!
+interface Ethernet0/1
+ ip address 10.45.10.1 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e0/2 R24 Triada
+ ip address 10.45.23.1 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
 
+
+#R24_Triada#
+Building configuration...
+!
+hostname R24_Triada
+!
+username admin privilege 15 secret 5 $1$a3MO$oZt3fImSAWtkcJwNBzIFi1
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.24 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/2 R21 Lamas
+ ip address 91.210.30.2 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e0/0 R26 Triada
+ ip address 10.45.214.1 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e0/2 R23 Triada
+ ip address 10.45.23.2 255.255.255.0
+!
+interface Ethernet0/3
+ description connect e0/2 R18 S.Petersberg
+ ip address 91.210.40.1 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
+
+
+#R25_Triada#sh run
+Building configuration...
+!
+hostname R25_Triada
+!
+username admin privilege 15 secret 5 $1$BxqX$ejfmpIK7BJoYriyanHrtU1
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.25 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/1 R23
+ ip address 10.45.10.2 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e0/0 R27
+ ip address 91.210.50.1 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e 0/2 R 26
+ ip address 10.45.26.1 255.255.255.0
+!
+interface Ethernet0/3
+ description connect e 0/1 R28
+ ip address 91.210.60.1 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
+
+
+#R26_Triada#
+Building configuration...
+!
+hostname R26_Triada
+!
+username admin privilege 15 secret 5 $1$xdhm$pV6oq/1LNhbdppCXzj5QQ.
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.26 255.255.255.255
+!
+interface Ethernet0/0
+ description e0/0 R24 Triada
+ ip address 10.45.214.2 255.255.255.0
+!
+interface Ethernet0/1
+ description e0/0 R28 Chokyrdax
+ ip address 91.210.70.1 255.255.255.0
+!
+interface Ethernet0/2
+ description e0/2 R25 Triada
+ ip address 10.45.26.2 255.255.255.0
+!
+interface Ethernet0/3
+ description e0/3 R18 S.Petersberg
+ ip address 91.210.80.1 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end

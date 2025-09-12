@@ -1,1 +1,37 @@
-
+R21_Lamas#
+Building configuration...
+!
+hostname R21_Lamas
+!
+!
+spanning-tree portfast bpduguard
+username admin privilege 15 secret 5 $1$fwxR$5fLPYSxrQ6lyKE8XSvZZq0
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.21 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/2 R15 Moscow
+ ip address 91.210.15.2 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e0/1 R22 Kitorn
+ ip address 91.210.10.2 255.255.255.0
+!
+interface Ethernet0/2
+ description e0/0 R24 Triada
+ ip address 91.210.30.1 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end

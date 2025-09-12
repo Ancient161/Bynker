@@ -1,1 +1,478 @@
+#VPC1#
 
+NAME        : VPC1_Moscow[1]
+IP/MASK     : 172.31.100.10/24
+GATEWAY     : 172.31.100.1
+DNS         :
+MAC         : 00:50:79:66:68:01
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+
+#VPC7#
+NAME        : VPC7_Moscow[1]
+IP/MASK     : 172.31.70.70/24
+GATEWAY     : 172.31.70.7
+DNS         :
+MAC         : 00:50:79:66:68:07
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+#SW3_Moscow
+!
+hostname SW3_Moscow
+!
+username admin privilege 15 secret 5 $1$jWWT$ymVoXJWxoo34Mk60u4zpq1
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 100,200,700 priority 28672
+!
+interface Ethernet0/0
+ description connect_e0/0_SW4_Moscow
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree mst 1 port-priority 64
+!
+interface Ethernet0/1
+ description connect SW5 e0/1
+ no switchport
+ ip address 172.18.1.3 255.255.255.0
+ duplex auto
+ spanning-tree mst 1 port-priority 64
+!
+interface Ethernet0/2
+ description connect VPC1
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface Vlan100
+ description Mgmt_vlan
+ ip address 172.31.100.3 255.255.255.0
+!
+interface Vlan200
+ description mgmt
+ ip address 192.168.254.4 255.255.255.0
+!
+interface Vlan700
+ description vpc7
+ ip address 172.31.70.7 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
+
+#SW2_Moscow#
+!
+hostname SW2_Moscow
+!
+username admin privilege 15 secret 5 $1$tCHF$ysqLH0kLAKHDDSNfJ8mtj1
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 100,200,700 priority 28672
+!
+ip ssh version 2
+!
+interface Ethernet0/0
+ description connect_e0/0_SW5_Moscow
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/2
+ description connect_VPC7
+ switchport access vlan 700
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface Vlan100
+ description Mgmt_VPC1
+ ip address 172.31.100.6 255.255.255.0
+!
+interface Vlan200
+ description mgmt
+ ip address 192.168.254.3 255.255.255.0
+!
+interface Vlan700
+ description Mgmt_vlan
+ ip address 172.31.70.6 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+#SW5_Moscow#s
+Building configuration...
+!
+hostname SW5_Moscow
+!
+username admin privilege 15 secret 5 $1$snT6$qpWKH.MGpy7CgYCTwJNsM0
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 100,200,700 priority 28672
+!
+ip ssh version 2
+!
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/2
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree port-priority 192
+!
+interface Ethernet0/3
+ no switchport
+ ip address 10.20.40.2 255.255.255.0
+ duplex auto
+!
+interface Ethernet1/1
+ switchport trunk allowed vlan 700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Vlan100
+ description vpc1
+ ip address 172.31.100.2 255.255.255.0
+!
+interface Vlan200
+ description mgmt
+ ip address 192.168.254.2 255.255.255.0
+!
+interface Vlan700
+ description Mgmt_vlan
+ ip address 172.31.70.8 255.255.255.0
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
+
+#SW4_Moscow#
+Building configuration...
+!
+hostname SW4_Moscow
+!
+username admin privilege 15 secret 5 $1$kuqL$P.KCVMv.Nh9rVEwh6GYzZ1
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 100,200,700 priority 24576
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+interface Ethernet0/0
+ description connect e0/0 R12
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/2
+ description SW5
+ no switchport
+ ip address 10.20.40.1 255.255.255.0
+ duplex auto
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 100,200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet1/1
+ switchport trunk allowed vlan 200,700
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+!
+interface Ethernet1/3
+!
+interface Vlan100
+ ip address 172.31.100.1 255.255.255.0
+!
+interface Vlan200
+ description mgmt vlan
+ ip address 192.168.254.1 255.255.255.0
+!
+interface Vlan700
+ description Mgmt_vlan
+ ip address 172.31.70.1 255.255.255.0
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+#Moscow_R12#
+Building configuration...
+!
+hostname Moscow_R12
+!
+spanning-tree portfast bpduguard
+username admin privilege 15 secret 5 $1$gXQg$rdNr/cYgbc3oKTARWa5mT0
+!
+ip ssh version 2
+!
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.12 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e1/0 SW4 Moscow
+ ip address 192.168.83.10 255.255.255.0
+!
+interface Ethernet0/0.100
+ encapsulation dot1Q 100
+ ip address 172.31.100.4 255.255.255.0
+!
+interface Ethernet0/0.200
+ description mgmt vlan 200
+ encapsulation dot1Q 200
+ ip address 192.168.254.12 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e1/1 SW5 Moscow
+ ip address 192.168.80.1 255.255.255.0
+!
+interface Ethernet0/1.700
+ encapsulation dot1Q 700
+ ip address 172.31.70.13 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e0/0 R14 Moscow
+ ip address 192.168.63.11 255.255.255.0
+!
+interface Ethernet0/3
+ description connect e0/3 R15 Moscow
+ ip address 192.168.77.3 255.255.255.0
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+#Moscow_R13#
+Building configuration...
+!
+hostname Moscow_R13
+!
+spanning-tree portfast bpduguard
+username admin privilege 15 secret 5 $1$.5jf$/YxzWibxbvhVQH43O9M5m.
+!
+ip ssh version 2
+!
+interface Loopback0
+ ip address 10.20.50.13 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e1/0 SW5 Moscow
+ ip address 192.168.165.10 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e1/1 SW4 Moscow
+ ip address 192.168.166.1 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e0/0 R15 Moscow
+ ip address 192.168.96.2 255.255.255.0
+!
+interface Ethernet0/3
+ description connect e0/1 R14 Moscow
+ ip address 192.168.53.3 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+#Moscow_R14#
+Building configuration...
+!
+hostname Moscow_R14
+!
+username admin privilege 15 secret 5 $1$93Fd$g1S55BBa/D1b89TXBOX1s1
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.14 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/0 R12 Moscow
+ ip address 192.168.63.10 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e0/3 R13 Moscow
+ ip address 192.168.53.1 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e0/0 R22 Kitorn
+ ip address 91.210.4.1 255.255.255.0
+!
+interface Ethernet0/3
+ description connecte e0/0 R19 Moscow
+ ip address 192.168.66.3 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+#Moscow_R15#
+!
+hostname Moscow_R15
+!
+username admin privilege 15 secret 5 $1$U8/g$SLeyyJF14Jke.tFMPejCh1
+!
+ip ssh version 2
+!
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.15 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/2 R13 Moscow
+ ip address 192.168.96.10 255.255.255.0
+!
+interface Ethernet0/1
+ description connect e0/3 R12 Moscow
+ ip address 192.168.77.1 255.255.255.0
+!
+interface Ethernet0/2
+ description connect e0/0 R21 Lamas
+ ip address 91.210.15.1 255.255.255.0
+!
+interface Ethernet0/3
+ description connect e0/0 R20 Moscow
+ ip address 192.168.95.3 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
+
+#Moscow_R19#
+Building configuration...
+!
+hostname Moscow_R19
+!
+username admin privilege 15 secret 5 $1$DHhs$Gri8KhIdjlP6YjpGn2nDt0
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.19 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/3 R14 Moscow
+ ip address 192.168.66.10 255.255.255.0
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+end
+
+#Moscow_R20#
+!
+hostname Moscow_R20
+!
+
+!
+username admin privilege 15 secret 5 $1$mX25$y6HytOEM5vS4.Zt4qwlyA/
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.20 255.255.255.255
+!
+interface Ethernet0/0
+ description connect e0/3 R15 Moscow
+ ip address 192.168.95.10 255.255.255.0
+ no ip route-cache
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end

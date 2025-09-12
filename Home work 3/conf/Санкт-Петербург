@@ -1,16 +1,10 @@
-
 #R18_S.Petersberg
-
-
-hostname R18_S.Petersberg
-
 !
-ip domain name cisco.net
-
+hostname R18_S.Petersberg
+!
 username admin privilege 15 secret 5 $1$mZEQ$dwk8jl/4D23sSEuUyJol00
-
+!
 ip ssh version 2
-
 !
 interface Loopback0
  description MGMT
@@ -54,14 +48,12 @@ end
 
 
 """R17_S.Petersberg"""
-
-hostname R17_S.Petersberg
-
-username admin privilege 15 secret 5 $1$e9JJ$t9BGAxgUYZGUTFUlsk6yR1
-
-ip ssh version 2
 !
-
+hostname R17_S.Petersberg
+!
+username admin privilege 15 secret 5 $1$e9JJ$t9BGAxgUYZGUTFUlsk6yR1
+!
+ip ssh version 2
 !
 interface Loopback0
  description MGMT
@@ -89,7 +81,6 @@ interface Ethernet0/2
  description connect e1/0 SW10
  ip address 172.18.10.2 255.255.255.0
 !
-
 line con 0
  exec-timeout 0 0
  logging synchronous
@@ -100,15 +91,13 @@ line vty 0 4
 !
 !
 end
-!
-#R16_S.Petersberg
+
+#R16_S.Petersberg#
 !
 hostname R16_S.Petersberg
 !
-!
 username admin privilege 15 secret 5 $1$CKDd$Yi4q/xoyPMVhoTt3TWQz4.
 !
-
 ip ssh version 2
 !
 interface Loopback0
@@ -142,9 +131,8 @@ line vty 0 4
 
 """SW10_Petersberg"""
 hostname SW10_Petersberg
-
+!
 username admin privilege 15 secret 5 $1$cAJF$od6AH6e6DI0Vvpic4s2ll/
-
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
@@ -153,7 +141,6 @@ spanning-tree vlan 200,800,900 priority 28672
 vlan internal allocation policy ascending
 !
 ip ssh version 2
-
 !
 interface Ethernet0/0
  description conn e 0/0 SW_10
@@ -204,14 +191,14 @@ line vty 0 4
  login local
  transport input telnet ssh
 !
+end
+
 #SW9_S.Petersberg#
 !
 hostname SW9_S.Petersberg
 !
-!
 username admin privilege 15 secret 5 $1$lOg9$lmrDydL9txPwrYHvMYWsf0
-no aaa new-model
-
+!
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
 spanning-tree vlan 200,800,900 priority 0
@@ -219,7 +206,6 @@ spanning-tree vlan 200,800,900 priority 0
 vlan internal allocation policy ascending
 !
 ip ssh version 2
-
 !
 interface Loopback0
  ip address 10.20.51.90 255.255.255.255
@@ -266,12 +252,6 @@ interface Vlan900
  description vpc9
  ip address 172.31.90.1 255.255.255.0
 !
-ip forward-protocol nd
-!
-no ip http server
-no ip http secure-server
-!
-!
 line con 0
  exec-timeout 0 0
  logging synchronous
@@ -286,8 +266,6 @@ hostname R32_S.Petersberg
 !
 username admin privilege 15 secret 5 $1$Lt1H$.3I80bXmiKhiwDMVVUdPC/
 !
-redundancy
-!
 !
 ip ssh version 2
 !
@@ -298,7 +276,7 @@ interface Ethernet0/0
  description e0/3 R16
  ip address 172.18.32.4 255.255.255.0
 no shutdown
-
+!
 line con 0
  exec-timeout 0 0
  logging synchronous
