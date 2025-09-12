@@ -12,12 +12,15 @@ interface Loopback0
  ip address 10.20.50.28 255.255.255.255
 !
 interface Ethernet0/0
+ description connect R26 e0/1 Triada
  ip address 91.210.70.2 255.255.255.0
 !
 interface Ethernet0/1
+ description connect R25 e0/3 Triada
  ip address 91.210.60.2 255.255.255.0
 !
 interface Ethernet0/2
+ description connect SW 29 e0/2
  ip address 100.68.30.1 255.255.255.0
 !
 interface Ethernet0/2.30
