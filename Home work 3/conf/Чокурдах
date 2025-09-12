@@ -1,1 +1,173 @@
+#R28#Chokurdakh_
+!
+hostname Chokurdakh_R28
+!
+spanning-tree portfast bpduguard
+username admin privilege 15 secret 5 $1$0ZIM$r0aLCv6jjwVU7bYMtc7jB0
+!
+ip ssh version 2
+!
+interface Loopback0
+ description MGMT
+ ip address 10.20.50.28 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 91.210.70.2 255.255.255.0
+!
+interface Ethernet0/1
+ ip address 91.210.60.2 255.255.255.0
+!
+interface Ethernet0/2
+ ip address 100.68.30.1 255.255.255.0
+!
+interface Ethernet0/2.30
+ description vpc_30
+ encapsulation dot1Q 30
+ ip address 100.68.28.28 255.255.255.0
+!
+interface Ethernet0/2.31
+ description vpc_31
+ encapsulation dot1Q 31
+ ip address 100.68.31.28 255.255.255.0
+!
 
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+
+Chokurdakh_SW29#sh run
+Building configuration...
+
+Current configuration : 1351 bytes
+!
+! Last configuration change at 08:27:31 UTC Thu Sep 11 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname Chokurdakh_SW29
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username admin privilege 15 secret 5 $1$l426$gCaHAB0VfIjqtpzox3viq1
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain-name cisco.net
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport access vlan 30
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface Ethernet0/1
+ switchport access vlan 31
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface Ethernet0/2
+ description connect e0/2 R28
+ switchport trunk allowed vlan 30,31
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/3
+!
+interface Vlan30
+ ip address 100.68.28.1 255.255.255.0
+!
+interface Vlan31
+ ip address 100.68.31.1 255.255.255.0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet ssh
+!
+!
+end
+
+#############################
+
+NAME        : VPCS[1]
+IP/MASK     : 100.68.28.30/24
+GATEWAY     : 100.68.28.1
+DNS         :
+MAC         : 00:50:79:66:68:1e
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+############################
+
+NAME        : VPCS[1]
+IP/MASK     : 100.68.31.10/24
+GATEWAY     : 100.68.31.1
+DNS         :
+MAC         : 00:50:79:66:68:1f
+LPORT       : 20000
+RHOST:PORT  : 127.0.0.1:30000
+MTU         : 1500
+
+############################
