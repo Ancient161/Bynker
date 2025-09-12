@@ -121,6 +121,10 @@ interface Ethernet0/2
  description connect e0/1 SW9
  ip address 172.18.16.8 255.255.255.0
 !
+interface Ethernet0/3
+ description connect e0/0 R 32
+ ip address 172.18.32.3 255.255.255.0
+ !
 line con 0
  exec-timeout 0 0
  logging synchronous
